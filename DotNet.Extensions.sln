@@ -6,9 +6,10 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
 	ProjectSection(SolutionItems) = preProject
 		Directory.Build.props = Directory.Build.props
+		.github\workflows\publish-eventbus-to-nuget.yml = .github\workflows\publish-eventbus-to-nuget.yml
 		.github\workflows\publish-extensions-to-nuget.yml = .github\workflows\publish-extensions-to-nuget.yml
-		README.md = README.md
 		.github\workflows\publish-services-to-nuget.yml = .github\workflows\publish-services-to-nuget.yml
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
@@ -32,6 +33,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "tests\UnitTests\UnitTests.csproj", "{9D1DD2CD-7B04-4472-4377-027563F356CA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "samples\WebApi\WebApi.csproj", "{66C87E44-9711-C87D-FC79-B516BA30D741}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBus", "src\EventBus\EventBus.csproj", "{260B8A6C-8088-DD10-DF70-7A0F3CBBDE6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBus.MassTransit.RabbitMQ", "src\EventBus.MassTransit.RabbitMQ\EventBus.MassTransit.RabbitMQ.csproj", "{1AD39A9C-B561-6818-BB91-60DB4BB6D632}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBusSample", "samples\EventBusSample\EventBusSample.csproj", "{2A485738-D9B8-46E3-EE25-218001BCDE28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBusConsumer", "samples\EventBusConsumer\EventBusConsumer.csproj", "{C428A8DE-9C59-6598-CD70-3A65B372A8A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +84,22 @@ Global
 		{66C87E44-9711-C87D-FC79-B516BA30D741}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66C87E44-9711-C87D-FC79-B516BA30D741}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66C87E44-9711-C87D-FC79-B516BA30D741}.Release|Any CPU.Build.0 = Release|Any CPU
+		{260B8A6C-8088-DD10-DF70-7A0F3CBBDE6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{260B8A6C-8088-DD10-DF70-7A0F3CBBDE6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{260B8A6C-8088-DD10-DF70-7A0F3CBBDE6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{260B8A6C-8088-DD10-DF70-7A0F3CBBDE6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AD39A9C-B561-6818-BB91-60DB4BB6D632}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AD39A9C-B561-6818-BB91-60DB4BB6D632}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AD39A9C-B561-6818-BB91-60DB4BB6D632}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AD39A9C-B561-6818-BB91-60DB4BB6D632}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A485738-D9B8-46E3-EE25-218001BCDE28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A485738-D9B8-46E3-EE25-218001BCDE28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A485738-D9B8-46E3-EE25-218001BCDE28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A485738-D9B8-46E3-EE25-218001BCDE28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C428A8DE-9C59-6598-CD70-3A65B372A8A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C428A8DE-9C59-6598-CD70-3A65B372A8A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C428A8DE-9C59-6598-CD70-3A65B372A8A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C428A8DE-9C59-6598-CD70-3A65B372A8A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,6 +113,8 @@ Global
 		{C5BB3856-6047-E1BB-C8B2-5402B9F8EC63} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{7357AA8A-A14B-B363-E150-11421CC8CB3B} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{9D1DD2CD-7B04-4472-4377-027563F356CA} = {86583F98-08B6-4D56-B437-7B6C4A3CA2CB}
+		{260B8A6C-8088-DD10-DF70-7A0F3CBBDE6D} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{1AD39A9C-B561-6818-BB91-60DB4BB6D632} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5EE85149-5E88-4B18-8557-FDA2003AEBAF}
