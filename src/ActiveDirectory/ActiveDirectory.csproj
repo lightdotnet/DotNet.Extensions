@@ -11,7 +11,7 @@
 	<Authors>minhvu</Authors>
 	<Description>Extension services connect to Active Directory support on Windows.</Description>
 	<Summary>Extension services connect to Active Directory support on Windows.</Summary>
-	<Version>0.0.0.18</Version>
+	<Version>1.0.0.0</Version>
 	<PackageTags>lightframework;dotnet;aspnetcore</PackageTags>
 	<PackageIcon>icon.png</PackageIcon>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
