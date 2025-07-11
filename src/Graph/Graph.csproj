@@ -21,9 +21,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<PackageReference Include="Azure.Identity" />
-	<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" />
-	<PackageReference Include="Microsoft.Graph" />
+	<PackageReference Include="Azure.Identity" Version="1.14.2" />
+	<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="9.*" />
+	<PackageReference Include="Microsoft.Graph" Version="5.85.0" />
   </ItemGroup>
 
   <ItemGroup>
