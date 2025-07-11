@@ -17,7 +17,10 @@ namespace Light.Extensions.DependencyInjection
 
             var credential = new ClientSecretCredential(
                 options.TenantId, options.ClientId, options.ClientSecret,
-                new TokenCredentialOptions { AuthorityHost = AzureAuthorityHosts.AzurePublicCloud });
+                new TokenCredentialOptions
+                {
+                    AuthorityHost = AzureAuthorityHosts.AzurePublicCloud
+                });
 
             //you can use a single client instance for the lifetime of the application
             services.AddSingleton(sp =>
