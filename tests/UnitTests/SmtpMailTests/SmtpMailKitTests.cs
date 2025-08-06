@@ -12,20 +12,18 @@ public class SmtpMailKitTests
     {
         _fromMail = "jermain.torphy@ethereal.email";
 
-        var smtpSettings = new SmtpSettings
-        {
-            Host = "smtp.ethereal.email",
-            Port = 587,
-            UseSsl = false,
-            UserName = _fromMail,
-            Password = "GHMdV12nF7zfFhqG7Z"
-        };
+        var host = "smtp.ethereal.email";
+        var userName = _fromMail;
+        var password = "GHMdV12nF7zfFhqG7Z";
 
-        _smtpMailKit = new SmtpMailKit(smtpSettings);
+        _smtpMailKit = new SmtpMailKit(host, userName, password)
+        {
+            UseSsl = false,
+        };
     }
 
     [Fact]
-    public async Task Must_Send_Email_Successfully()
+    public async Task Must_Send_Email_With_No_Exceptions()
     {
         var recipients = new List<string>
         {

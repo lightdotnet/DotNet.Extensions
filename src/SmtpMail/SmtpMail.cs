@@ -4,13 +4,12 @@ using System.Threading.Tasks;
 
 namespace Light.SmtpMail
 {
-    public class SmtpMail
+    public class SmtpMail : SmtpConnection
     {
-        private readonly ISmtp _smtp;
-
-        public SmtpMail(ISmtp smtp)
+        public SmtpMail(string host, int port = 25)
         {
-            _smtp = smtp;
+            Host = host;
+            Port = port;
         }
 
         public async Task SendAsync(MailFrom from, Mail.MailMessage mail)
@@ -47,10 +46,10 @@ namespace Light.SmtpMail
                 }
             }
 
-            using var smtpClient = new SmtpClient(_smtp.Host, _smtp.Port)
+            using var smtpClient = new SmtpClient(Host, Port)
             {
                 DeliveryMethod = SmtpDeliveryMethod.Network,
-                EnableSsl = _smtp.UseSsl
+                EnableSsl = UseSsl
             };
 
             await smtpClient.SendMailAsync(message);

@@ -12,18 +12,16 @@ public class SmtpMailTests
     {
         _fromMail = "user@domain.local";
 
-        var smtpSettings = new SmtpSettings
-        {
-            Host = "smtp.freesmtpservers.com",
-            Port = 25,
-            UseSsl = false,
-        };
+        var host = "smtp.freesmtpservers.com";
 
-        _smtpMail = new SmtpMail(smtpSettings);
+        _smtpMail = new SmtpMail(host)
+        {
+            UseSsl = false, // Set to true if your SMTP server requires SSL
+        };
     }
 
     [Fact]
-    public async Task Must_Send_Email_Successfully()
+    public async Task Must_Send_Email_With_No_Exceptions()
     {
         var recipients = new List<string>
         {
