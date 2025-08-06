@@ -36,6 +36,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Extensions\Extensions.csproj" />
+    <ProjectReference Include="..\..\src\SmtpMail\SmtpMail.csproj" />
   </ItemGroup>
 
 </Project>
