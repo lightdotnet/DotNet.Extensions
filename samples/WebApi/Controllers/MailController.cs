@@ -42,17 +42,15 @@ namespace WebApi.Controllers
             //    FileToBytes = byteArray
             //});
 
-            var smtp = new SmtpSettings
+            var host = "smtp.ethereal.email";
+            var userName = "jermain.torphy@ethereal.email";
+            var password = "GHMdV12nF7zfFhqG7Z";
+
+            var smtpClient = new SmtpMailKit(host, userName, password)
             {
-                Host = "smtp.ethereal.email",
-                Port = 587,
                 UseSsl = false,
-                UserName = "leslie.bailey@ethereal.email",
-                Password = "nrfdZH5KfTaHp6DWRF"
             };
 
-
-            var smtpClient = new SmtpMailKit(smtp);
             await smtpClient.SendAsync(from, message);
 
             return Ok();
