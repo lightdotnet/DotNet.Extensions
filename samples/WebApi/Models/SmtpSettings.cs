@@ -2,7 +2,7 @@
 
 namespace WebApi.Models
 {
-    public class SmtpSettings : ISmtp, IMailkitSmtp
+    public class SmtpSettings
     {
         public string Host { get; set; } = null!;
 
