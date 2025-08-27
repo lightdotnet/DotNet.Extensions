@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System.Data;
 
 namespace Light.File.Excel
 {
     public class ExportExcelDataRequest
     {
-        public IList<object> Data { get; set; } = null!;
+        public DataTable Rows { get; set; } = null!;
 
-        public string? SheetName { get; set; }
+        public string SheetName { get; set; } = null!;
     }
 }
