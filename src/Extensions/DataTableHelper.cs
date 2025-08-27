@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Linq;
 using System.Reflection;
 
 namespace Light.Extensions
@@ -36,7 +37,7 @@ namespace Light.Extensions
         /// <summary>
         /// Load list values to DataTable
         /// </summary>
-        public static DataTable Load<T>(IList<T> values)
+        public static DataTable Load<T>(IList<T> values, params Type[] excludeTypes)
         {
             PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(typeof(T));
             var table = new DataTable("table", "table");
@@ -47,8 +48,19 @@ namespace Light.Extensions
             foreach (T item in values)
             {
                 DataRow row = table.NewRow();
+
                 foreach (PropertyDescriptor prop in properties)
-                    row[prop.Name] = prop.GetValue(item) ?? DBNull.Value;
+                {
+                    if (excludeTypes.Any() && excludeTypes.Any(x => x == prop.PropertyType))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        row[prop.Name] = prop.GetValue(item) ?? DBNull.Value;
+                    }
+                }
+
                 table.Rows.Add(row);
             }
 
