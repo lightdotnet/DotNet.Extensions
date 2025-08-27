@@ -71,6 +71,22 @@ namespace WebApi.Controllers
 
             return Ok();
         }
+
+        [HttpGet("export_dt")]
+        public IActionResult ExportDatatable()
+        {
+            DataTable dt = new DataTable();
+            dt.Clear();
+            dt.Columns.Add("Id");
+            dt.Columns.Add("Name");
+            DataRow row = dt.NewRow();
+            row["Id"] = "1";
+            row["Name"] = "test";
+            dt.Rows.Add(row);
+
+            Stream stream = _excelService.Export(dt);
+            return File(stream, "application/octet-stream", "DataExport.xlsx"); // returns a FileStreamResult
+        }
     }
 }
 

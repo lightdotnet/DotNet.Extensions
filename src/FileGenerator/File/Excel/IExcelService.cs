@@ -9,7 +9,7 @@ namespace Light.File.Excel
         /// <summary>
         /// Export a DataTable to file
         /// </summary>
-        Stream Export<T>(DataTable dataTable, string? sheetName = null);
+        Stream Export(DataTable dataTable, string? sheetName = null);
 
         /// <summary>
         /// Export a list data to file

@@ -10,7 +10,7 @@ namespace Light.Infrastructure.Excel
 {
     public class ExcelService : IExcelService
     {
-        public Stream Export<T>(DataTable dataTable, string? sheetName = null)
+        public Stream Export(DataTable dataTable, string? sheetName = null)
         {
             using var wb = new XLWorkbook();
             wb.Worksheets.Add(dataTable, sheetName ?? "data");
@@ -42,9 +42,7 @@ namespace Light.Infrastructure.Excel
 
             foreach (var obj in request)
             {
-                var typeOfObj = obj.Data.GetType().Name;
-
-                wb.Worksheets.Add(obj.SheetName ?? typeOfObj).FirstCell().InsertTable(obj.Data, true);
+                wb.Worksheets.Add(obj.Rows, obj.SheetName);
             }
 
             foreach (var ws in wb.Worksheets)
