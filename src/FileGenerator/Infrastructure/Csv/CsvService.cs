@@ -2,10 +2,12 @@
 using CsvHelper.Configuration;
 using Light.File.Csv;
 using System.Collections.Generic;
+using System.Data;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Light.Infrastructure.Csv
 {
@@ -122,7 +124,7 @@ namespace Light.Infrastructure.Csv
             return Read(reader);
         }
 
-        public Stream Write<T>(IEnumerable<T> records, bool excludeHeader = false)
+        public async Task<Stream> WriteAsync<T>(IEnumerable<T> records, bool excludeHeader = false)
         {
             var memoryStream = new MemoryStream();
 
@@ -133,16 +135,50 @@ namespace Light.Infrastructure.Csv
             if (excludeHeader is false)
             {
                 csv.WriteHeader<T>();
-                csv.NextRecord();
+                await csv.NextRecordAsync();
             }
 
             foreach (var record in records)
             {
                 csv.WriteRecord(record);
-                csv.NextRecord();
+                await csv.NextRecordAsync();
             }
 
-            writer.Flush(); // Ensure all data is written to the stream
+            await writer.FlushAsync(); // Ensure all data is written to the stream
+
+            memoryStream.Seek(0, SeekOrigin.Begin); // Alternative to memoryStream.Position = 0, Reset stream position for reading
+
+            return memoryStream;
+        }
+
+        public async Task<Stream> WriteAsync(DataTable table, bool excludeHeader = false)
+        {
+            var memoryStream = new MemoryStream();
+
+            var writer = new StreamWriter(memoryStream, Encoding.UTF8);
+            var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
+
+            if (!excludeHeader)
+            {
+                foreach (DataColumn column in table.Columns)
+                {
+                    csv.WriteField(column.ColumnName);
+                }
+
+                await csv.NextRecordAsync(); // <-- IMPORTANT: moves to a *new line*
+            }
+
+            foreach (DataRow row in table.Rows)
+            {
+                foreach (var item in row.ItemArray)
+                {
+                    csv.WriteField(item);
+                }
+
+                await csv.NextRecordAsync(); // <-- without this, all data stays in the same row
+            }
+
+            await writer.FlushAsync(); // Ensure all data is written to the stream'
 
             memoryStream.Seek(0, SeekOrigin.Begin); // Alternative to memoryStream.Position = 0, Reset stream position for reading
 
