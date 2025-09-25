@@ -1,6 +1,7 @@
 using CsvHelper.Configuration.Attributes;
 using Light.File.Csv;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace WebApi.Controllers
 {
@@ -35,15 +36,45 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("export")]
-        public IActionResult Write()
+        public async Task<IActionResult> Write()
         {
             var stream = new StreamReader(_path);
 
-            var dt = csvService.ReadAs<CsvObject>(stream);
+            var list = csvService.ReadAs<CsvObject>(stream);
 
-            var write = csvService.Write(dt);
+            var write = await csvService.WriteAsync(list);
 
             return File(write, "application/octet-stream", "DataExport.csv"); // returns a FileStreamResult
+        }
+
+        [HttpGet("export_dt")]
+        public async Task<IActionResult> ExportDatatable()
+        {
+            DataTable dt = new DataTable();
+            dt.Clear();
+            dt.Columns.Add("Id");
+            dt.Columns.Add("Name");
+
+            DataRow row = dt.NewRow();
+            row["Id"] = "1";
+            row["Name"] = "test";
+            dt.Rows.Add(row);
+
+            DataRow row2 = dt.NewRow();
+            row2["Id"] = "2";
+            row2["Name"] = "test 2";
+            dt.Rows.Add(row2);
+
+            DataRow row3 = dt.NewRow();
+            row3["Id"] = "3";
+            dt.Rows.Add(row3);
+
+            DataRow row4 = dt.NewRow();
+            row4["Name"] = "test 4";
+            dt.Rows.Add(row4);
+
+            Stream stream = await csvService.WriteAsync(dt);
+            return File(stream, "application/octet-stream", "DataTableCsvExport.csv"); // returns a FileStreamResult
         }
     }
 
